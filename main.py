@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-import uvicorn
+# import uvicorn
 from fastapi.responses import HTMLResponse
 
 app = FastAPI()
@@ -86,4 +86,4 @@ def read_item(loc:Loc):
     return genloc(lat, lon)
 
 
-uvicorn.run(app, host="0.0.0.0", port="8080")
+# uvicorn.run(app, host="0.0.0.0", port="8080")
