@@ -91,6 +91,8 @@ def read_item(loc:Loc):
     lat, lon = loc.lat, loc.lon
     save.changeLat(lat)
     save.changeLon(lon)
+    print(lat)
+    print(lon)
     return 200
 
 
