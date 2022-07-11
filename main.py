@@ -4,10 +4,16 @@ from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
+import save
+
+glat, glon = save.getLat(), save.getLon()
 
 @app.get("/")
 def read_root():
-    return 0;
+    return {
+        "lat":glat,
+        "lon":glon
+    }
 
 
 def genloc(lat, lon):
@@ -83,7 +89,10 @@ class Loc(BaseModel):
 @app.post("/loc")
 def read_item(loc:Loc):
     lat, lon = loc.lat, loc.lon
-    return genloc(lat, lon)
+    save.changeLat(lat)
+    save.changeLon(lon)
+    return 200
+
 
 
 # uvicorn.run(app, host="0.0.0.0", port="8080")
