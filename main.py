@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-# import uvicorn
+import uvicorn
 from fastapi.responses import HTMLResponse
 
 app = FastAPI()
@@ -7,7 +7,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return 0;
 
 
 def genloc(lat, lon):
@@ -69,10 +69,21 @@ def genloc(lat, lon):
 #     """.format(lat, lon)
     return HTMLResponse(content=html_content, status_code=200)
 
+from pydantic import BaseModel
 
-@app.get("/loc/{lat}/{lon}")
-def read_item(lat: int, lon: int):
+
+
+class Loc(BaseModel):
+    lat:str
+    lon:str
+    
+
+
+
+@app.post("/loc")
+def read_item(loc:Loc):
+    lat, lon = loc.lat, loc.lon
     return genloc(lat, lon)
 
 
-# uvicorn.run(app, host="0.0.0.0", port="8080")
+uvicorn.run(app, host="0.0.0.0", port="8080")
